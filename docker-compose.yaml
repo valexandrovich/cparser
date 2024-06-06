@@ -14,7 +14,7 @@ services:
     networks:
       - cs-network
     depends_on:
-      - postgres
+#      - postgres
       - rabbitmq
 
   eintaxid-exporter:
@@ -28,7 +28,7 @@ services:
     networks:
       - cs-network
     depends_on:
-      - postgres
+#      - postgres
       - rabbitmq
 
 
@@ -39,12 +39,13 @@ services:
       args:
         - JAR_FILE=eintaxid-saver/target/eintaxid-saver*.jar
     environment:
-      - DB_URL=jdbc:postgresql://postgres:5432/cs_db
+#      - DB_URL=jdbc:postgresql://postgres:5432/cs_db
+      - DB_URL=jdbc:postgresql://localhost:5432/cs_db
       - RABBITMQ_HOST=rabbitmq
     networks:
       - cs-network
     depends_on:
-      - postgres
+#      - postgres
       - rabbitmq
 
   rabbitmq:
@@ -59,16 +60,16 @@ services:
       - cs-network
 
 
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: cs_db
-      POSTGRES_USER: cs_app
-      POSTGRES_PASSWORD: 3211
-    ports:
-      - "5432:5432"
-    networks:
-      - cs-network
+#  postgres:
+#    image: postgres:latest
+#    environment:
+#      POSTGRES_DB: cs_db
+#      POSTGRES_USER: cs_app
+#      POSTGRES_PASSWORD: 3211
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - cs-network
 
 
 networks:
