@@ -1,0 +1,79 @@
+version: '3'
+services:
+
+  eintaxid-link-harvester:
+    build:
+      context: .
+      dockerfile: ./config/docker/Dockerfile_jar_local
+      args:
+        - JAR_FILE=eintaxid-link-harvester/target/eintaxid-link-harvester*.jar
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    ports:
+      - "9001:9001"
+    networks:
+      - cs-network
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  eintaxid-exporter:
+    build:
+      context: .
+      dockerfile: ./config/docker/Dockerfile_jar_local
+      args:
+        - JAR_FILE=eintaxid-extractor/target/eintaxid-extractor*.jar
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+      - cs-network
+    depends_on:
+      - postgres
+      - rabbitmq
+
+
+  eintaxid-saver:
+    build:
+      context: .
+      dockerfile: ./config/docker/Dockerfile_jar_local
+      args:
+        - JAR_FILE=eintaxid-saver/target/eintaxid-saver*.jar
+    environment:
+      - DB_URL=jdbc:postgresql://postgres:5432/cs_db
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+      - cs-network
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: cs_app
+      RABBITMQ_DEFAULT_PASS: 3211
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - cs-network
+
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: cs_db
+      POSTGRES_USER: cs_app
+      POSTGRES_PASSWORD: 3211
+    ports:
+      - "5432:5432"
+    networks:
+      - cs-network
+
+
+networks:
+  cs-network:
+    driver: bridge
+
+
+
