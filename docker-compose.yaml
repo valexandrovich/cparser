@@ -16,6 +16,13 @@ services:
     depends_on:
 #      - postgres
       - rabbitmq
+    deploy:
+      resources:
+        limits:
+          memory: 1Gb
+        reservations:
+          memory: 512M
+
 
   eintaxid-exporter:
     build:
@@ -28,6 +35,11 @@ services:
     networks:
       - cs-network
     deploy:
+      resources:
+        limits:
+          memory: 1Gb
+        reservations:
+          memory: 512M
       replicas: 10
     depends_on:
 #      - postgres
@@ -48,6 +60,11 @@ services:
     networks:
       - cs-network
     deploy:
+      resources:
+        limits:
+          memory: 1Gb
+        reservations:
+          memory: 512M
       replicas: 10
     depends_on:
 #      - postgres
