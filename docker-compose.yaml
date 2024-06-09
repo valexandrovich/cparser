@@ -14,7 +14,7 @@ services:
     networks:
       - cs-network
     depends_on:
-#      - postgres
+      - postgres
       - rabbitmq
     deploy:
       resources:
@@ -42,7 +42,7 @@ services:
           memory: 512M
       replicas: 10
     depends_on:
-#      - postgres
+      - postgres
       - rabbitmq
 
 
@@ -53,8 +53,8 @@ services:
       args:
         - JAR_FILE=eintaxid-saver/target/eintaxid-saver*.jar
     environment:
-      - DB_URL=jdbc:postgresql://172.17.0.1:5432/cs_db
-#      - DB_URL=jdbc:postgresql://postgres:5432/cs_db
+#      - DB_URL=jdbc:postgresql://172.17.0.1:5432/cs_db
+      - DB_URL=jdbc:postgresql://postgres:5432/cs_db
 #      - DB_URL=jdbc:postgresql://localhost:5432/cs_db
       - RABBITMQ_HOST=rabbitmq
     networks:
@@ -82,18 +82,18 @@ services:
       - cs-network
 
 
-#  postgres:
-#    image: postgres:latest
-#    environment:
-#      POSTGRES_DB: cs_db
-#      POSTGRES_USER: cs_app
-#      POSTGRES_PASSWORD: 3211
-#    volumes:
-#      - ./max_connections.sql:/docker-entrypoint-initdb.d/max_conns.sql
-#    ports:
-#      - "5411:5432"
-#    networks:
-#      - cs-network
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: cs_db
+      POSTGRES_USER: cs_app
+      POSTGRES_PASSWORD: 3211
+    volumes:
+      - ./max_connections.sql:/docker-entrypoint-initdb.d/max_conns.sql
+    ports:
+      - "5411:5432"
+    networks:
+      - cs-network
 
 
 networks:
