@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -30,6 +31,10 @@ public class EintaxidHarvesterService {
 
     @Autowired
     RabbitTemplate rabbitTemplate;
+
+    AtomicInteger linksCount = new AtomicInteger(0);
+
+
 
 
     public Mono<Void> startHarvesting() {
@@ -233,7 +238,8 @@ public class EintaxidHarvesterService {
                 }
             }
         }
-        log.info("Trying to send: " + links.size() + " links");
+        log.info("TOTAL HARVESTED: " +  linksCount.get()  + "Trying to send: " + links.size() + " links");
+        linksCount.addAndGet(links.size());
         for (String link : links){
             rabbitTemplate.convertAndSend("cs.eintaxid.extractor", new EintaxidExtractRequest(link));
 
