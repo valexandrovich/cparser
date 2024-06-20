@@ -62,6 +62,7 @@ public class EintaxidSaverService {
         entity.setIncSubDiv(dto.getIncSubDiv());
         entity.setIncCountry(dto.getIncCountry());
         entity.setFillingYear(dto.getFillingYear());
+        entity.setLink(dto.getLink());
         return entity;
     }
 

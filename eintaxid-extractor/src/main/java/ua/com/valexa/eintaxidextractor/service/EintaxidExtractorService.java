@@ -179,6 +179,8 @@ public class EintaxidExtractorService {
                         profile.setFillingYear(tdValue);
                     }
 
+                    profile.setLink(url);
+
                 }
 
             }

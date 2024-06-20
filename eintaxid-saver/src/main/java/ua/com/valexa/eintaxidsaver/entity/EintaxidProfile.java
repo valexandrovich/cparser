@@ -38,4 +38,6 @@ public class EintaxidProfile {
     private String incSubDiv;
     private String incCountry;
     private String fillingYear;
+
+    private String link;
 }

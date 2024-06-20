@@ -33,4 +33,6 @@ public class EintaxidProfileDto {
     private String incCountry;
     private String fillingYear;
 
+    private String link;
+
 }
