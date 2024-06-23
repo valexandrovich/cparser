@@ -16,6 +16,9 @@
     </properties>
 
     <modules>
+        <module>api-server</module>
+        <module>api-gateway</module>
+        <module>sandbox</module>
         <module>common</module>
         <module>eintaxid-link-harvester</module>
         <module>eintaxid-extractor</module>

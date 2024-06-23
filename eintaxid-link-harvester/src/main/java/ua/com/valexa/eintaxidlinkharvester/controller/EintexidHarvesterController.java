@@ -17,7 +17,6 @@ public class EintexidHarvesterController {
 
     @GetMapping("/harvest")
     public Mono<Void> startHarvesting(){
-        log.info("Start harvesting");
        return eintaxidHarvesterService.startHarvesting();
     }
 
