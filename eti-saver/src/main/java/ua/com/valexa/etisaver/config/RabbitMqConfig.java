@@ -1,4 +1,4 @@
-package ua.com.valexa.etiextractor.config;
+package ua.com.valexa.etisaver.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -12,25 +12,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
-    @Value("${queue.eti.extractor}")
-    private String queueEtiExtractor;
-
-
-
+    @Value("${queue.eti.saver}")
+    private String queueEtiSaver;
 
     @Bean
-    public String getQueueEtiExtractor(){
-        return queueEtiExtractor;
+    public String getQueueEtiSaver(){
+        return queueEtiSaver;
     }
 
-//    @Bean
-//    public String getQueueEtiSaver(){
-//        return queueEtiSaver;
-//    }
-
     @Bean
-    public Queue loaderQueue() {
-        return new Queue(queueEtiExtractor, true);
+    public Queue queueEtiSaver() {
+        return new Queue(queueEtiSaver, true);
     }
 
     @Bean

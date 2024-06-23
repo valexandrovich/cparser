@@ -18,11 +18,16 @@
     <modules>
         <module>api-server</module>
         <module>api-gateway</module>
-        <module>sandbox</module>
+<!--        <module>sandbox</module>-->
         <module>common</module>
-        <module>eintaxid-link-harvester</module>
-        <module>eintaxid-extractor</module>
-        <module>eintaxid-saver</module>
+<!--        <module>eintaxid-link-harvester</module>-->
+<!--        <module>eintaxid-extractor</module>-->
+<!--        <module>eintaxid-saver</module>-->
+
+        <module>eti-harvester</module>
+        <module>eti-extractor</module>
+        <module>eti-saver</module>
+        <module>oc</module>
     </modules>
 
 </project>

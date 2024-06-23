@@ -1,12 +1,12 @@
-package ua.com.valexa.eintaxidsaver.service;
+package ua.com.valexa.etisaver.service;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.valexa.common.dto.EtiProfileDto;
-import ua.com.valexa.eintaxidsaver.entity.EintaxidProfile;
-import ua.com.valexa.eintaxidsaver.repository.EintaxidProfileRepository;
+import ua.com.valexa.etisaver.entity.EtiProfile;
+import ua.com.valexa.etisaver.repository.EtiProfileRepository;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -14,10 +14,10 @@ import java.util.concurrent.Executors;
 
 @Service
 @Slf4j
-public class EintaxidSaverService {
+public class EtiSaverService {
 
     @Autowired
-    EintaxidProfileRepository eintaxidProfileRepository;
+    EtiProfileRepository etiProfileRepository;
 
 
     ExecutorService executorService = Executors.newFixedThreadPool(20);
@@ -29,17 +29,16 @@ public class EintaxidSaverService {
 
     @SneakyThrows
     private void saveDto(EtiProfileDto dto){
-        EintaxidProfile entity = toEntity(dto);
-        eintaxidProfileRepository.save(entity);
+        EtiProfile entity = toEntity(dto);
+        etiProfileRepository.save(entity);
     }
 
-
-    private static EintaxidProfile toEntity(EtiProfileDto dto) {
+    private static EtiProfile toEntity(EtiProfileDto dto) {
         if (dto == null) {
             return null;
         }
 
-        EintaxidProfile entity = new EintaxidProfile();
+        EtiProfile entity = new EtiProfile();
         entity.setOrgName(dto.getOrgName());
         entity.setIrsEin(dto.getIrsEin());
         entity.setDoingBusinessAs(dto.getDoingBusinessAs());

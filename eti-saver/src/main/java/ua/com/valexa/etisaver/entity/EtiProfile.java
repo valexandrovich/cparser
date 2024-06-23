@@ -1,17 +1,26 @@
-package ua.com.valexa.common.dto;
+package ua.com.valexa.etisaver.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
+@Entity
+@Table(name = "eti_profile")
 @Data
-public class EintaxidProfileDto {
+public class EtiProfile {
 
+    @Id
+    private String irsEin;
+
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+
+    @Lob
+    private String description;
 
     private String orgName;
-    private String irsEin;
+
     private String doingBusinessAs;
     private String typeOfBusiness;
-
-    private String description;
 
     private String businessProfile;
     private String businessAddress;
@@ -34,5 +43,4 @@ public class EintaxidProfileDto {
     private String fillingYear;
 
     private String link;
-
 }

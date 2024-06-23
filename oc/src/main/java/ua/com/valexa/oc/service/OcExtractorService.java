@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.html.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,10 +54,20 @@ public class OcExtractorService {
     }
 
 
-    public void tst(String companyName, String incState) {
+    private List<String> getSearchLinks(String companyName, String incState){
         try (WebClient webClient = new WebClient()) {
 
-            String url = "https://opencorporates.com/companies?utf8=%E2%9C%93&q=Bio-techne+Corp&commit=Go&jurisdiction_code=&country_code=us&type=companies&user=true&utf8=%E2%9C%93&controller=searches&action=search_companies&mode=best_fields&search_fields%5B%5D=name&search_fields%5B%5D=previous_names&search_fields%5B%5D=company_number&search_fields%5B%5D=other_company_numbers&branch=&nonprofit=&order=";
+            String jurisdiction = "us_de";
+
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.append("https://opencorporates.com/companies/");
+            urlBuilder.append(jurisdiction);
+            urlBuilder.append("?branch=false&commit=Go&mode=phrase_prefix&nonprofit=&order=&q=");
+            urlBuilder.append(companyName.replace(" ", "+"));
+            urlBuilder.append("&type=companies&user=true&utf8=%E2%9C%93");
+
+            String url = urlBuilder.toString();
+
 
             webClient.getOptions().setJavaScriptEnabled(true);
             webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -69,7 +80,7 @@ public class OcExtractorService {
                 page = loginToWebsite(webClient);
             }
             page = webClient.getPage(url);
-            HtmlUnorderedList companiesList = (HtmlUnorderedList) page.getByXPath("/html/body/div[2]/div[2]/div[1]/div[2]/ul");
+            HtmlUnorderedList companiesList = (HtmlUnorderedList) page.getByXPath("/html/body/div[2]/div[2]/div[1]/div[2]/ul").get(0);
 
 
             System.out.println(page);
@@ -78,6 +89,11 @@ public class OcExtractorService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public void tst(String companyName, String incState) {
+
 
 
     }

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import ua.com.valexa.common.dto.EintaxidExtractRequest;
+import ua.com.valexa.common.dto.EtiExtractRequest;
 
 @Service
 @Slf4j
@@ -236,7 +236,7 @@ public class EtiHarvesterService {
         log.info("TOTAL HARVESTED: " +  linksCount.get()  + "; Trying to send: " + links.size() + " links");
         linksCount.addAndGet(links.size());
         for (String link : links){
-            rabbitTemplate.convertAndSend(queueEtiExtractor, new EintaxidExtractRequest(link));
+            rabbitTemplate.convertAndSend(queueEtiExtractor, new EtiExtractRequest(link));
 
         }
 //        return links;

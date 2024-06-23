@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
-import ua.com.valexa.common.dto.EintaxidExtractRequest;
+import ua.com.valexa.common.dto.EtiExtractRequest;
 
 
 import java.time.Duration;
@@ -241,7 +241,7 @@ public class EintaxidHarvesterService {
         log.info("TOTAL HARVESTED: " +  linksCount.get()  + "Trying to send: " + links.size() + " links");
         linksCount.addAndGet(links.size());
         for (String link : links){
-            rabbitTemplate.convertAndSend("cs.eintaxid.extractor", new EintaxidExtractRequest(link));
+            rabbitTemplate.convertAndSend("cs.eintaxid.extractor", new EtiExtractRequest(link));
 
         }
 //        return links;

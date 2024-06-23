@@ -1,10 +1,10 @@
-package ua.com.valexa.eintaxidextractor.service;
+package ua.com.valexa.etiextractor.service;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+import com.gargoylesoftware.htmlunit.html.*;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import ua.com.valexa.common.dto.EtiExtractRequest;
 import ua.com.valexa.common.dto.EtiProfileDto;
@@ -15,13 +15,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.gargoylesoftware.htmlunit.html.*;
-import org.jsoup.select.Elements;
-
 @Service
 @Slf4j
-public class EintaxidExtractorService {
-
+public class EtiExtractorService {
 
     ExecutorService executorService = Executors.newFixedThreadPool(10);
 
@@ -29,6 +25,7 @@ public class EintaxidExtractorService {
     public CompletableFuture<EtiProfileDto> extractFuture(EtiExtractRequest request) {
         return CompletableFuture.supplyAsync(() -> extract(request), executorService);
     }
+
 
     @SneakyThrows
     private EtiProfileDto extract(EtiExtractRequest request){
@@ -241,6 +238,5 @@ public class EintaxidExtractorService {
         }
         return false;
     }
-
 
 }

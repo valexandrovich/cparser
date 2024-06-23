@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class EintaxidExtractRequest {
+public class EtiExtractRequest {
     private String companyLink;
 
-    public EintaxidExtractRequest(String companyLink) {
+    public EtiExtractRequest(String companyLink) {
         this.companyLink = companyLink;
     }
 }

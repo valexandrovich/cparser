@@ -8,9 +8,13 @@ import ua.com.valexa.oc.service.OcExtractorService;
 @SpringBootTest
 class OcApplicationTests {
 
+    @Autowired
+    OcExtractorService ocExtractorService;
+
     @Test
     void contextLoad(){
-        System.out.println("OK");
+        ocExtractorService.tst("Borgwarner Inc", "DE");
+
     }
 
 }

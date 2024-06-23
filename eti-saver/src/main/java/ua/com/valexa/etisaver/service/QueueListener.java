@@ -1,4 +1,4 @@
-package ua.com.valexa.eintaxidsaver.service;
+package ua.com.valexa.etisaver.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -13,18 +13,14 @@ import java.util.concurrent.CompletableFuture;
 public class QueueListener {
 
     @Autowired
-    EintaxidSaverService eintaxidSaverService;
+    EtiSaverService etiSaverService;
 
 
-    @RabbitListener(queues = "cs.eintaxid.saver")
+    @RabbitListener(queues = "#{getQueueEtiSaver}")
     public void receiveDownloaderMessage(EtiProfileDto dto) {
         log.info("EintaxidSaver get request: " + dto);
 
-        CompletableFuture<Void> cfuture = eintaxidSaverService.save(dto);
+        CompletableFuture<Void> cfuture = etiSaverService.save(dto);
     }
-
-
-
-
 
 }

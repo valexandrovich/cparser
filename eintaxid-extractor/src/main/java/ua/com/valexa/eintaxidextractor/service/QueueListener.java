@@ -5,8 +5,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.com.valexa.common.dto.EintaxidExtractRequest;
-import ua.com.valexa.common.dto.EintaxidProfileDto;
+import ua.com.valexa.common.dto.EtiExtractRequest;
+import ua.com.valexa.common.dto.EtiProfileDto;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -22,16 +22,16 @@ public class QueueListener {
 
 
     @RabbitListener(queues = "cs.eintaxid.extractor", errorHandler = "queueListenerErrorHandler")
-    public void receiveDownloaderMessage(EintaxidExtractRequest request) {
+    public void receiveDownloaderMessage(EtiExtractRequest request) {
         log.info("EintaxidExtractor get request: " + request.getCompanyLink());
-        CompletableFuture<EintaxidProfileDto> cfuture = eintaxidExtractorService.extractFuture(request);
+        CompletableFuture<EtiProfileDto> cfuture = eintaxidExtractorService.extractFuture(request);
         cfuture.thenAccept(this::sendResponse);
     }
 
 
-    private void sendResponse(EintaxidProfileDto eintaxidProfileDto) {
-        log.info("Sending to save EintaxidProfile: " + eintaxidProfileDto);
-        rabbitTemplate.convertAndSend("cs.eintaxid.saver", eintaxidProfileDto);
+    private void sendResponse(EtiProfileDto etiProfileDto) {
+        log.info("Sending to save EintaxidProfile: " + etiProfileDto);
+        rabbitTemplate.convertAndSend("cs.eintaxid.saver", etiProfileDto);
 
 
     }
