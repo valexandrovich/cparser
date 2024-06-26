@@ -26,7 +26,7 @@
 
         <module>eti-harvester</module>
         <module>eti-extractor</module>
-        <module>eti-saver</module>
+<!--        <module>eti-saver</module>-->
         <module>oc</module>
     </modules>
 
